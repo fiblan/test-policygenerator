@@ -10,7 +10,10 @@ policyDefaults:
   remediationAction: inform
   severity: medium
   placement:
-    placementName: cluster-placement-test-ms
+    name: cluster-placement-test-ms
+    clusterSelector:
+      matchLabels:
+        local-cluster: "true"
 policies:
   - name: cluster-policygen-test-ms
     manifests:
