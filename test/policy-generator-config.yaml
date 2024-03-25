@@ -14,9 +14,7 @@ policyDefaults:
     clusterSelector:
       matchExpressions:
         - key: local-cluster
-          operator: In
-          values:
-            - "true"
+          operator: Exists
 policies:
   - name: cluster-policygen-test-ms
     manifests:
