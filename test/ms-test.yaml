@@ -1,0 +1,59 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  creationTimestamp: null
+  labels:
+    machine.openshift.io/cluster-api-cluster: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}'
+  name: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-infra-test'
+  namespace: openshift-machine-api
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-test'
+      machine.openshift.io/cluster-api-machineset: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-infra-test'
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        machine.openshift.io/cluster-api-cluster: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-test'
+        machine.openshift.io/cluster-api-machine-role: worker
+        machine.openshift.io/cluster-api-machine-type: worker
+        machine.openshift.io/cluster-api-machineset: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-infra-test'
+    spec:
+      metadata:
+        creationTimestamp: null
+        labels:
+          node-role.kubernetes.io/infra: ""
+      providerSpec:
+        value:
+          apiVersion: vsphereprovider.openshift.io/v1beta1
+          credentialsSecret:
+            name: vsphere-cloud-credentials
+          diskGiB: 120
+          kind: VSphereMachineProviderSpec
+          memoryMiB: 24576
+          metadata:
+            creationTimestamp: null
+          network:
+            devices:
+            - networkName: "VLAN-XXXXXXXXX" 
+          numCPUs: 8
+          numCoresPerSocket: 2
+          snapshot: ""
+          template: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-rhcos'
+          userDataSecret:
+            name: worker-user-data
+          workspace:
+            datacenter: "XXXXXXXXX"
+            datastore: XXXXXXXXX
+            folder: "XXXXXXXXXXXX"
+            resourcePool: "XXXXXXXXXXX"
+            server: XXXXXXXX
+      taints:
+        - effect: NoSchedule
+          key: infra
+          value: reserved
+        - effect: NoExecute
+          key: infra
+          value: reserved
