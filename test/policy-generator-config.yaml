@@ -12,6 +12,6 @@ policyDefaults:
   placement:
     placementName: cluster-placement-test-ms
 policies:
-  - name: cluster-policy-ms
+  - name: cluster-policygen-test-ms
     manifests:
       - path: ms-test.yaml
