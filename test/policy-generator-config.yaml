@@ -1,17 +1,17 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PolicyGenerator
 metadata:
-  name: cluster-policygen
+  name: cluster-policygen-test-ms
 placementBindingDefaults:
-  name: cluster-policy
+  name: cluster-policy-test-ms
 policyDefaults:
-  namespace: acm-policies
+  namespace: default
   complianceType: musthave
   remediationAction: inform
   severity: medium
   placement:
-    placementRuleName: cluster-placement-rule
+    placementName: cluster-placement-test-ms
 policies:
-  - name: cluster-policy
+  - name: cluster-policy-ms
     manifests:
       - path: ms-test.yaml
