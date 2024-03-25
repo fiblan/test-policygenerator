@@ -11,10 +11,8 @@ policyDefaults:
   severity: medium
   placement:
     name: cluster-placement-test-ms
-    clusterSelector:
-      matchExpressions:
-        - key: local-cluster
-          operator: Exists
+    clusterSelectors:
+      env: test
 policies:
   - name: cluster-policygen-test-ms
     manifests:
