@@ -7,7 +7,7 @@ placementBindingDefaults:
 policyDefaults:
   namespace: default
   complianceType: musthave
-  remediationAction: inform
+  remediationAction: enforce
   severity: medium
   placement:
     name: cluster-placement-test-ms
