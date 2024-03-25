@@ -2,7 +2,6 @@ apiVersion: machine.openshift.io/v1beta1
 kind: MachineSet
 metadata:
   creationTimestamp: null
-  namespace: openshift-machine-api
   labels:
     machine.openshift.io/cluster-api-cluster: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}'
   name: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-infra-test'
